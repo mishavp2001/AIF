@@ -1,0 +1,29 @@
+<html>
+
+<body>
+
+<script type="text/javascript">
+	var variableName, x, arrayRef =[];
+	
+	variableName = 'Michael'+'Polyakov';
+	arrayRef[0] = '$500'; 
+	arrayRef[variableName] = '$100'; 
+	arrayRef.variableName = '$300'; 
+	
+	x = {};
+	x[0] = '$500';
+	x[variableName] = '$200';
+	x.variableName = '$100';
+	
+	document.writeln("--------------------------------");
+	document.writeln(arrayRef[variableName]);
+	document.writeln(arrayRef.variableName);
+	document.writeln(x[variableName]);
+	document.writeln(x.variableName);
+	document.writeln("--------------------------------");
+	
+	
+</script>
+
+</body>
+</html>

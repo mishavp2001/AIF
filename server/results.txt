@@ -1,0 +1,97 @@
+Love is carying:::127.0.0.1:::8
+Friendship is when u can trust each other:::127.0.0.1:::8
+Friendship is when u can trust each other:::127.0.0.1:::6
+I am lucky:::127.0.0.1:::6
+Friendship is when u can trust each other:::127.0.0.1:::9
+I am lucky:::127.0.0.1:::10
+Love is carying:::127.0.0.1:::10
+Dennis is a very good boy:::127.0.0.1:::9
+Friendship is when u can trust each other:::127.0.0.1:::9
+Friendship is when u can trust each other:::127.0.0.1:::10
+Love is carying:::127.0.0.1:::6
+Its a good time to buy a house:::127.0.0.1:::6
+Love is pain:::127.0.0.1:::10
+What is life?:::127.0.0.1:::5
+What is life?:::127.0.0.1:::10
+What is life?:::127.0.0.1:::10
+Testing Submit:::127.0.0.1:::9
+Dennis is a very good boy:::127.0.0.1:::10
+Testing Submit:::127.0.0.1:::10
+Earth is spining:::127.0.0.1:::8
+Earth is spining:::127.0.0.1:::7
+What is after life?:::127.0.0.1:::10
+Its a good time to buy a house:::127.0.0.1:::8
+Its a good time to buy a house:::127.0.0.1:::8
+Testing Submit:::127.0.0.1:::7
+Dennis is a good boy:::127.0.0.1:::5
+What is friendship?:::127.0.0.1:::4
+Testing Submit:::127.0.0.1:::6
+Diana is the best :::127.0.0.1:::10
+Earth is spining:::127.0.0.1:::10
+God doesnt Exists:::127.0.0.1:::8
+Dennis is a very good boy:::127.0.0.1:::8
+Diana is the best :::127.0.0.1:::7
+Where is the best place to go to Vacation?:::127.0.0.1:::10
+null:::127.0.0.1:::8
+Testing Submit Arguments:::127.0.0.1:::9
+God doesnt Exists:::127.0.0.1:::9
+Earth is spining:::127.0.0.1:::6
+Friendship is when u can trust each other:::127.0.0.1:::3
+Friendship is when u can trust each other:::127.0.0.1:::3
+Diana is the best :::127.0.0.1:::3
+Diana is the best :::127.0.0.1:::10
+What is love?:::127.0.0.1:::7
+test1:::127.0.0.1:::8
+test4:::127.0.0.1:::9
+test4:::127.0.0.1:::9
+test3:::127.0.0.1:::8
+test2:::127.0.0.1:::8
+test1-rate:::127.0.0.1:::8
+test1-rate:::127.0.0.1:::6
+test1-weight:::127.0.0.1:::6
+test2-rate:::127.0.0.1:::3
+test2-weight:::127.0.0.1:::9
+test3-rate:::127.0.0.1:::8
+test3-weight:::127.0.0.1:::7
+test3-rate:::127.0.0.1:::8
+test4-rate:::127.0.0.1:::5
+test4-weight:::127.0.0.1:::4
+test2-weight:::127.0.0.1:::10
+test3-weight:::127.0.0.1:::10
+test4-weight:::127.0.0.1:::10
+test1-weight:::127.0.0.1:::10
+test4-rate:::127.0.0.1:::9
+test2-rate:::127.0.0.1:::6
+test2-rate:::127.0.0.1:::8
+test3-rate:::127.0.0.1:::10
+test4-rate:::127.0.0.1:::10
+test3-rate:::127.0.0.1:::8
+test4-weight:::127.0.0.1:::10
+test3-weight:::127.0.0.1:::8
+test4-weight:::127.0.0.1:::3
+test4-rate:::127.0.0.1:::10
+test3-rate:::127.0.0.1:::10
+test2-rate:::127.0.0.1:::10
+test1-rate:::127.0.0.1:::10
+test1-rate:::127.0.0.1:::10
+test1-rate:::127.0.0.1:::10
+test4-rate:::127.0.0.1:::2
+test3-rate:::127.0.0.1:::2
+test2-rate:::127.0.0.1:::2
+test1-rate:::127.0.0.1:::3
+test3-rate:::127.0.0.1:::3
+test4-rate:::127.0.0.1:::3
+test2-rate:::127.0.0.1:::2
+test1-rate:::127.0.0.1:::2
+test4-rate:::127.0.0.1:::3
+test3-rate:::127.0.0.1:::4
+test2-rate:::127.0.0.1:::2
+test1-rate:::127.0.0.1:::3
+test1-rate:::127.0.0.1:::7
+test1-rate:::127.0.0.1:::9
+test1-rate:::127.0.0.1:::10
+test1-rate:::127.0.0.1:::6
+test1-rate:::127.0.0.1:::10
+test2-rate:::127.0.0.1:::9
+test4-rate:::127.0.0.1:::9
+test3-rate:::127.0.0.1:::5

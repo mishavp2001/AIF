@@ -1,0 +1,323 @@
+<!-- IE in quirks mode -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+	<title>Fixed header</title>
+	<head>
+	<title>Debates</title>
+		<link rel="stylesheet" href="css/global.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="css/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		
+		<script type="text/javascript" src="./js/jquery.min.js"></script>
+		<script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="./js/home.js"></script>
+		<style type="text/css">
+
+			* html body {
+				overflow: hidden;
+			}
+			body {
+				padding: 100px 0 0;
+			}
+			body a{
+				text-decoration: none;
+			}
+			body > div#header-main {
+				position: fixed;
+			}
+			div#header-main input#search {
+				border-radius: 5px 5px 5px 5px;
+				height: 26px;
+				padding: 5px;
+				width: 525px;
+			}
+			img#logo {
+				left: 16px;
+				position: fixed;
+				top: 10px;
+				width: 16%;
+				z-index: 1003;
+			}
+			body > div#login {
+				position: fixed;
+			}
+			div#login a#login{
+				font-size: 12px;
+				color: white;
+			}	
+			div#login {
+				float: right;
+				top: 20px;
+				z-index: 1003;
+			}
+
+			div#header-main {
+				background: none repeat scroll 0 0 blue;
+				border: 4px solid white;
+				border-radius: 8px 8px 10px 10px;
+				color: white;
+				font-family: serif;
+				font-size: 26px;
+				font-weight: bold;
+				height: 50px;
+				left: 8px;
+				padding-bottom: 8px;
+				padding-right: 10px;
+				padding-top: 30px;
+				position: absolute;
+				text-align: center;
+				top: 0px;
+				width: 98%;
+				z-index: 1000;
+			}
+			div#header {
+				border: 4px solid white;
+				border-radius: 10px 10px 10px 10px;
+				color: white;
+				height: 100px;
+				left: 23%;
+				padding: 10px;
+				position: absolute;
+				top: 96px;
+				width: 75%;
+				z-index: 100;
+			}
+			body > div#header {
+				position: fixed;
+			}
+			div#mainContext {
+				background-color: gold;
+				border-radius: 10px 10px 10px 10px;
+				float: left;
+				margin-left: 23%;
+				overflow-y: auto;
+				overflow-x: hidden;
+				padding: 10px;
+				position: absolute;
+				top: 100px;
+				width: 74%;
+			}
+			div#mainContext p {
+				border-bottom: 2px solid blue;
+				color: blue;
+				height: 200px;
+			}
+			body {
+				font: 80%/1.3 Arial,sans-serif;
+			}
+			#header {
+				background: none repeat scroll 0 0 lime;
+				color: black;
+			}
+			div#right-sidebar {
+				background: none repeat scroll 0 0 green;
+				color: black;
+				padding: 10px;
+			}
+			body > div#left-sidebar, body > div#left-sidebar-search {
+				<!-- position: fixed; -->
+			}
+			div#left-sidebar {
+				left: 13px;
+				overflow-y: auto;
+				overflow-x: hidden;
+				margin-bottom: 20px;
+				padding: 10px;
+				top: 96px;
+				border-radius: 10px 10px 10px 10px;
+			}
+			div#left-sidebar-search {
+				padding: 10px;
+				height: 100px;
+				left: 13px;
+				top: 420px;
+				border-radius: 10px 10px 10px 10px;
+				color: white;
+				background: none repeat scroll 0 0 DodgerBlue;
+			}
+
+			div#left-sidebar {
+				background: none repeat scroll 0 0 DodgerBlue;
+				color: white;
+				font-weight: bold;
+			}
+			body > div#footer {
+				position: fixed;
+			}
+			div#footer {
+				bottom: 0;
+				height: 110px;
+				left: 0;
+				position: absolute;
+				width: 100%;
+			}
+			div#footer {
+				background: none repeat scroll 0 0 black;
+				color: white;
+			}
+
+		</style>
+		<script type="text/javascript" src="./js/jquery.min.js"></script>
+		
+		<script src="http://connect.facebook.net/en_US/all.js"></script>
+
+		
+		<script>
+			$(document).ready(function(){
+				
+				/*$('#header').drag(
+					function(){
+						var divHeight = $(this).height() + 100;
+						if(divHeight < 400){
+							$(this).css('height', divHeight);
+							var divTop = $('#content')[0].offsetTop + 100;
+							$('#content').css('top', divTop);
+						}	
+					}
+				);
+				$('#footer').drag(
+					function(){
+						var divHeight = $('#header').height() - 100;
+						if(divHeight > 0){
+							$('#header').css('height', divHeight);
+							var offsetTop = $(this).offsetTop - 100;
+							$(this).css('top', offsetTop);
+							offsetTop = $('#content')[0].offsetTop - 100;
+							$('#content').css('top', offsetTop);
+						}	
+					}
+				);*/
+			
+			});
+		</script>
+	</head>
+	
+	<body>	
+		<img class="logoImg" id="logo" src="./images/logo.jpg"></img>
+		<div id="header-main">
+			<form>
+				<span>SEARCH:</span> <input type="textbox" id="search"/>
+				<div id="login">
+					<a href="javascript:void();" id="login">Login</a>
+					<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=275057425854799&amp;xfbml=1"></script><fb:name  />
+					<script src="http://connect.facebook.net/en_US/all.js"></script>
+					<script>
+					  // initialize the library with the API key
+					  FB.init({ apiKey: '275057425854799' });
+
+					  // fetch the status on load
+					  FB.getLoginStatus(handleSessionResponse);
+
+					  $('#login').bind('click', function() {
+						FB.login(handleSessionResponse);
+					  });
+
+					  $('#logout').bind('click', function() {
+						FB.logout(handleSessionResponse);
+					  });
+
+					  $('#disconnect').bind('click', function() {
+						FB.api({ method: 'Auth.revokeAuthorization' }, function(response) {
+						  clearDisplay();
+						});
+					  });
+
+					  // no user, clear display
+					  function clearDisplay() {
+						$('#user-info').hide('fast');
+					  }
+
+					  // handle a session response from any of the auth related calls
+					  function handleSessionResponse(response) {
+						// if we dont have a session, just hide the user info
+						if (!response.session) {
+						  clearDisplay();
+						  return;
+						}
+
+						// if we have a session, query for the user's profile picture and name
+						FB.api(
+						  {
+							method: 'fql.query',
+							query: 'SELECT name, pic FROM profile WHERE id=' + FB.getSession().uid
+						  },
+						  function(response) {
+							var user = response[0];
+							$('#user-info').html('<img src="' + user.pic + '">' + user.name).show('fast');
+						  }
+						);
+					  }
+					</script>
+				</div>
+			</form>
+		</div>
+		<div id="header">
+			<!--Put Header Context in here.  -->
+			<span id="topicSpan"></span>
+			<div id="content">
+               <p align="center">Select your rating:</p>
+               <p class="ratingbox" align="center">
+                  <?php $handler->displayRating('Book1',10); ?>
+               </p><br/><br/>
+               <p align="center">
+                  The actual rating is <?php echo $handler->displayRateValue('Book1'); ?> 
+                  after <?php echo $handler->displayTotalNumberOfRatings('Book1'); ?> votes.
+               </p>      
+             </div>
+			<div id="tools_div">
+				<div id="topicRate">
+					<a href ="javascript:void(0)" class="rateN">5</a>
+					<a href ="javascript:void(0)" class="rateN">4</a>
+					<a href ="javascript:void(0)" class="rateN">3</a>
+					<a href ="javascript:void(0)" class="rateN">2</a>
+					<a href ="javascript:void(0)" class="rateN">1</a>
+					<a href ="javascript:void(0)" class="rateP">1</a>
+					<a href ="javascript:void(0)" class="rateP">2</a>
+					<a href ="javascript:void(0)" class="rateP">3</a>
+					<a href ="javascript:void(0)" class="rateP">4</a>
+					<a href ="javascript:void(0)" class="rateP">5</a>
+				</div>
+				<span id='addArguments' class="action_topc_nav">add</span>
+			</div>	
+		</div>
+		<div id="left-nav">
+			<div id="left-sidebar">
+				<div id="debateRef">
+					<a href ="javascript:void(0)" class="topic">Arguments & Facts<span id='addNewArguments' class="action_side_nav">add</span></a>
+					<div id="statmentsDiv"></div>
+					<a href ="javascript:void(0)" class="topic">Questions & Answers<span id='addNewQuestions' class="action_side_nav">add</span></a>
+					<div id="questionsDiv"></div>
+					<a href ="javascript:void(0)" class="topic">Debates & Compares<span id='addNewDebates' class="action_side_nav">add</span></a>
+					<div id="debatesDiv"></div>
+					<a href ="javascript:void(0)" class="topic">My Account</a>
+					<div id="bookmarksDiv" ></div>
+				</div>	
+			</div>
+			<div id="left-sidebar-search">
+				<div id="debateRef">
+					<a href ="javascript:void(0)" class="topic">Search</a>
+					<div id="searchDiv" ></div>	
+				</div>	
+			</div>	
+		</div>
+		<div id="mainContext">
+			<div id="debateDiv">
+				<div class="classArguments classAnswers">
+					<div id="messagewindowDiv">
+						<span class="loading">Loading...</span>
+					</div>
+					<!-- New Dialog Form to add new A/F/Q/A/D -->
+					<form id="chatForm">
+						<label>Name: </label><input type="text" id="author" />
+						<label>Summary:</label><input type="text" id="msg" />
+						<label>Description:</label><textarea rows="2" cols="20" id="description"></textarea>
+						<a href='javascript:void(0)' class="btn_ref" id="submitID" type="submit">Ok<a/>
+						<a href='javascript:void(0)' class="btn_ref" id='cancelRef'>Cancel</a>
+						<input id="statments" value="Y" />
+					</form>
+				</div>	
+			</div>
+		</div>
+		<div id="footer">
+		</div>
+	</body>	
+</html>	

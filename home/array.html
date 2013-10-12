@@ -1,0 +1,30 @@
+<html>
+
+   <head>
+
+    </head>
+    <body>
+        
+		<script language="JavaScript" src="../common/js/lib/jquery-1.4.2.min.js"></script>
+		<script language="JavaScript" src="../common/js/lib/jquery.event.drag-2.0.min.js"></script>
+		<script language="JavaScript" src="../common/js/slick.editors.js"></script>
+        <script language="JavaScript" src="../common/js/slick.grid.js"></script>
+
+		
+        <script>
+		var newIndex = 'test index';
+		document.writeln("+++++++++++++++++++++++++++++++++++++++++++");
+		var arrTestLit = ['1', {"Test": "Test 111"}, NaN, 12, "Michael Polyakov"];
+		arrTestLit[newIndex] = "New Index Test"; 
+		var arrTestObj = new Array("1", {"Test": "Test 2344"}, NaN, 12, "Michael Polyakov");
+		arrTestObj[newIndex] = "New Index Test"; 
+		
+		document.writeln(arrTestLit[newIndex]);
+		document.writeln(arrTestObj[newIndex]);
+		
+		document.writeln("+++++++++++++++++++++++++++++++++++++++++++");
+		
+		</script>
+
+    </body>
+</html>

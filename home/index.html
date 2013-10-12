@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<title>Debates</title>
+		<link rel="stylesheet" href="css/global.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="css/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+		
+		<script type="text/javascript" src="./js/jquery.min.js"></script>
+		<script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="./js/home.js"></script>
+	</head>
+	<body>
+		<div id="logoDiv">
+			<div class="submit">
+				<img class="logoImg" src="./images/logo.jpg"></img>
+				<div class="css-panes" id="decisionSearch">
+					<ul >
+						<li><a href="#tabs-q">Question</a></li>
+						<li><a href="#tabs-o">Answers</a></li>
+					</ul>
+					<div id="tabs-q" class="css-tabs">
+						<input type="text" class="question"></input>
+						<input type="text" class="criterias"></input>
+						<a href="javascript:void()">Criterias</a>
+					</div>
+					<div  id="tabs-o" class="css-tabs">
+						1.<input type="text" class="answers"></input>
+					</div>
+					<div class="saveBtn">
+						<a href='javascript:void(0)' id='addStatments'>Save</a>
+					</div>
+				</div>	
+			</div>
+					 
+			<div class="clearDiv"></div>	
+		</div>
+		
+		<div id="mainContext">
+			<div id="debateRef">
+				<a href='javascript:void(0)' id='spSearch' class="topic">Search:<input type="text" id="search" /></a>
+				<div id="externalSearchDiv"></div>
+				<a href ="javascript:void(0)" class="topic">Questions <span class="topic-filter"><span class="categoryFltr">Category</span><span class="latestFltr">Latest</span><span class="popularFltr">Popular</span></span></a>
+				<div id="questionsDiv"></div>
+				<a href ="javascript:void(0)" class="topic">Answers <span class="topic-filter"><span class="categoryFltr">Category</span><span class="latestFltr">Latest</span><span class="popularFltr">Popular</span></span></a>
+				<div id="statmentsDiv"></div>
+				<a href ="javascript:void(0)" class="topic">Bookmarks <span class="topic-filter"><span class="categoryFltr">Category</span><span class="latestFltr">Latest</span><span class="popularFltr">Popular</span></span></a>
+				<div id="bookmarksDiv" ></div>
+				
+			</div>	
+		
+			<div id="debateDiv">
+				<div class="classArguments classAnswers">
+					<a href='javascript:void(0)' id='addArguments'>Add Arguments</a>
+					<a href='javascript:void(0)' id='compare'>Compare 1</a>
+					<span id="topicSpan"></span>
+					<div id="messagewindowDiv">
+						<span class="loading">Loading...</span>
+					</div>
+					<div id="tabs">	
+							<ul>
+								<li><a href="#tabs-1">Google</a></li>
+								<li><a href="#tabs-2">Ask</a></li>
+								<li><a href="#tabs-3">Yahoo</a></li>
+							</ul>
+							<div id="tabs-1">
+								<p>Your browser does not support iframes.</p>
+							</div>
+							<div id="tabs-2">
+								<p>Your browser does not support iframes.</p>
+							</div>
+							<div id="tabs-3">
+								<p>Your browser does not support iframes.</p>
+							</div>
+						</div>	
+					</div>	
+			</div>
+		</div>
+		
+		<div id="chatDiv"></div>
+		<form id="chatForm">
+			<div id="name">Name: <input type="text" id="author" /></div> 
+			<div class="summaryFrm">Summary:<input type="text" id="msg" /></div>
+			<div class="descriptionFrm">Description:<textarea rows="2" cols="20" id="description"></textarea></div>
+			<div>
+				<input id="submitID" type="submit" value="ok" />
+				<a href='javascript:void(0)' id='cancelRef'>Cancel</a>
+			</div>
+			<input id="statments" value="Y" />
+		</form>
+		
+		
+	</body>
+</html>

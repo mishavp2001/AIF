@@ -1,0 +1,769 @@
+<html>
+<head>
+	<title>Debates</title>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/base/jquery-ui.css" type="text/css" media="all" />
+	
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/jquery-ui.min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			// Colapse events to side menues
+			$('.topic').click(function() {
+				$(this).next().toggle();
+				return false;
+			}).next().hide();
+			$('.topic:first').next().toggle();
+			$('.topic #bookmarksDiv').toggle();
+			
+			// Colapse events to side menues
+			$('.topic-filter span').click(function() {
+				switch (this.className) {
+					case "categoryFltr":
+						removeSelectedfilter(this);
+						break;
+					case "latestFltr":
+						removeSelectedfilter(this);
+						break;
+					case "popularFltr":
+						removeSelectedfilter(this);
+						break;
+				}
+				return false;
+			});
+		
+			var prevent_bust = 0  
+			window.onbeforeunload = function() { prevent_bust++ }  
+			setInterval(function() {  
+			if (prevent_bust > 0) {  
+			   prevent_bust -= 2  
+			   window.top.location = ''  
+			 }  
+			}, 1)  
+			
+			function loadTab(ui){
+				$iFrame = $('<iframe></iframe>');
+				$iFrame.attr('src', "http://www.google.com");
+				$iFrame.css('width', "100%");
+				$iFrame.css('height', "100%");
+				if($(ui.tab).text() == "Google"){
+					$iFrame.attr('src', "http://www.google.com");
+				}
+				if($(ui.tab).text() == "Yahoo"){
+					$iFrame.attr('src', "http://www.yahoo.com");
+				}
+				if($(ui.tab).text() == "Ask"){
+					$iFrame.attr('src', "http://www.ask.com");
+				}
+				 $iFrame.load();
+
+				if($iFrame){
+					$(ui.panel).empty();
+					$(ui.panel).prepend($iFrame);	
+				}
+			}	
+			
+			decisionSearch
+			//Add external search
+			$( "#decisionSearch" ).tabs();
+			
+			//Add external search
+			$( "#tabs" ).tabs({
+			   show: function(event, ui) { 
+					loadTab(ui);
+				}
+			});
+		
+			
+			$("#spSearch").click(function() {		
+					$("#tabs").toggle() ;
+					return false;
+				}
+			);	
+			
+			function removeSelectedfilter(elm) {
+				$(elm).parent().children('span').removeClass('fontDarck');
+				$(elm).addClass('fontDarck');
+			};
+			// Make topics sortable
+			$(function() {
+				$( "#questionsDiv, #statmentsDiv, #bookmarksDiv" ).sortable();
+				$( "#questionsDiv, #statmentsDiv, #bookmarksDiv" ).disableSelection();
+			});
+			
+			// Make statments dragable
+			function makeDragable() {
+				$( ".draggable" ).draggable();
+				$( "#bookmarksDiv" ).droppable({
+					drop: function( event, ui ) {
+						$( this )
+							.addClass( "ui-state-highlight" )
+							.html("New bookmark")
+					}
+				});
+			};
+
+
+	
+			
+		    //Hide submit mnew message form
+			$("#cancelRef").click( function () {
+				// Cancel submit form
+				$("#chatDiv, #chatForm").toggle();
+			});
+			$("#addArguments, #addStatments, .addAnswers, #addQuestions").click( function () {
+				//add statment/argument flag
+				var statmentFlag = (this.id =='addStatments')?'S':'A';
+				statmentFlag = (this.id =='addQuestions')?'Q':statmentFlag;
+				
+				$("#statments").val(statmentFlag);
+				// Show submit form
+				$("#chatDiv, #chatForm").toggle();
+			});
+			
+			/*function getNextStatmentId() {
+				$.getJSON("getnextStatmentIdJson.php", {
+					action: "getNextStatmentId" },
+					function(json) {
+					$("#statmentId").val(json.nextStatmentId);
+				});
+			}*/
+			
+			$("#generated1").click( function () {
+				// Show Debate
+				$("#debateDiv").toggle();
+			});
+			
+			currentID = 0;
+			timestampStatments  = 0;
+			timestampArguments  = 0;
+			
+			
+		function addArguments(json) {
+			if(json.status == "2") return;
+			timestampArguments = json.time;
+			
+			$(json.statments).each(function(id) {
+				var winTemp = $("#messagewindowDiv");
+				winTemp.prepend("<div style='float: left; width: 20%;'><a href='javascript:void(0)' class = 'userRef' id = '" +
+											this.user + "'>" +
+											this.user + 
+											":</a></div>"  +			
+											"<div style='float: left; width: 78%;'><a href='javascript:void(0)' class = 'statmentRef draggable' id = '" + 
+											this.statmentId + "'>" +
+											this.statment +  
+											"</a></div>"  +
+											"<div style='clear: both;'/>");
+											
+			});
+			
+			makeDragable();
+			
+			$(".statmentRef").click( function () {
+				var temp = $(this);
+				if ($(temp).next('.descriptionDiv').length !== 0){
+					$(temp).next('.descriptionDiv').remove();
+				} else {
+					$.getJSON("fetchDescriptionJson.php",{ statmentId: this.id }, 
+						function(jsonDesc) {
+							showDescription(jsonDesc, temp)
+						}	
+					);
+					function showDescription(jsonDesc, temp) {
+						$.each(jsonDesc.statments, function(key, val) { 
+							if (this.description){
+								addDescription(temp, this.description);
+							}
+						});
+						function addDescription(temp, desc) {
+							$(temp).after( "<div class='descriptionDiv'>" + desc + 
+									"<a href='javascript:void(0)' class='rateRef'>"  +
+									"Like It." +
+								"</a>"	+
+							"</div>");	
+						}
+					}
+			
+				}
+			});			
+		
+		}
+		
+		function updateArguments(id, time, topic) {
+			if( id != currentID) return false;
+			time = (!time)? timestampArguments: time;
+			$.getJSON("fetchArgumentsJson.php",{ time: time, statmentId: id }, function(json) {
+				$(".loading").remove();
+				// Add selected topic
+				if(topic){
+					$("#topicSpan").html("'" + topic + "'");
+				}
+				addArguments(json);
+			});
+			setTimeout(function(){updateArguments(id, null, topic)}, 4000);
+		}
+		
+		function updateStatments() {
+			$.getJSON("getStatmentsJson.php", 
+				{time: timestampStatments, count: 100, type: "_"},
+				function(json) {
+					addStatments(json);
+				}
+			);
+		}	
+
+		function updateQuestions() {
+			$.getJSON("getStatmentsJson.php", 
+				{time: timestampStatments, count: 100, type: "q"},
+				function(json) {
+					addStatments(json);
+				}
+			);
+		}	
+		
+		
+		function addStatments(json){
+		    timestampStatments = json.time;
+			
+			$.each(json.statments, function(id) { 
+				switch (this.type) {
+					case 's':
+						$("#statmentsDiv").prepend("<a href='javascript:void(0)' class='blockRef statment draggable'" + "id='" + this.statmentId + "' >" + this.statment + "</a>");
+						break;		
+					case 'q':
+						$("#questionsDiv").prepend("<a href='javascript:void(0)' class='blockRef question draggable'" + "id='" + this.statmentId + "' >" + this.statment + "</a>");	
+						break;
+				}
+				makeDragable();
+			});
+			
+			$(".blockRef").click( function () {
+				$(".blockRef").removeClass('blockRefClicked');
+				if( $(this).hasClass('question')){
+					$("#addArguments").html("Add Answers");
+					$("#addArguments").addClass("addAnswers");
+				} else {
+					$("#addArguments").html("Add Arguments");
+					$("#addArguments").removeClass("addAnswers");
+				}
+				$(this).addClass('blockRefClicked');				
+				// Clear Chat room
+				$("#messagewindowDiv").empty();
+				//('.blockRef, .descriptionDiv').remove();
+				// Load context into context div.
+				currentID = this.id;
+				updateArguments(this.id, 1, $(this).html());
+			});
+			// Initialize
+			$(".blockRef").removeClass('blockRefClicked');
+			$(".blockRef:first").addClass('blockRefClicked');
+			currentID = $(".blockRef:first")[0].id;
+			updateArguments(currentID, 1, $(".blockRef:first").html());	
+		}	
+	
+		updateStatments();
+		
+		
+		$("#chatForm").submit(function(){
+			switch ($('#statments').val()) {
+				case 'S':
+						$.getJSON("insertStatmentJson.php",{
+							debateId: currentID,
+							statment: $("#msg").val(),
+							description: $("#description").val(),
+							user: $("#author").val(),
+							action: "postmsg",
+							time: timestampStatments
+						}, function(json) {
+							$("#chatDiv, #chatForm").toggle();
+							updateStatments();
+						});
+						break;
+				case "A":
+					$.getJSON("insertArgumentsJson.php",{
+							debateId: currentID,
+							statment: $("#msg").val(),
+							description: $("#description").val(),
+							user: $("#author").val(),
+							agree: ($("#yes").is(':checked'))?'Y':'N',
+							action: "postmsg",
+							time: timestampArguments
+						}, function(json, temp, temp, topic) {
+							$("#msg").empty();
+							$("#chatDiv, #chatForm").toggle();
+							updateArguments(currentID, null, null);
+						});
+						break;
+				case "Q":
+					$.getJSON("insertQuestionsJson.php",{
+							debateId: currentID,
+							statment: $("#msg").val(),
+							description: $("#description").val(),
+							user: $("#author").val(),
+							agree: ($("#yes").is(':checked'))?'Y':'N',
+							action: "postmsg",
+							time: timestampStatments
+						}, function(json) {
+							$("#msg").empty();
+							$("#chatDiv, #chatForm").toggle();
+							updateStatments();
+						});		
+						break;
+				default:
+					alert("Unknown type");
+			}
+			
+			return false;
+		});
+	});
+		
+		
+	</script>
+	<style type="text/css">
+		.fontDarck {
+			 color: black;
+		}
+
+		#debateDiv .rateRef {
+			 color: blanchedAlmond;
+			 margin-left: 20px;
+		}
+
+		#debateDiv .userRef {
+			 color: blue;
+			 text-decoration: none;
+		}
+
+		.descriptionDiv {
+			 border-left: 1px solid black;
+			 margin: 10px;
+			 padding-left: 10px;
+		}
+
+		#chatDiv {
+			 background-color: gray;
+			 display: none;
+			 height: 100%;
+			 left: 0px;
+			 opacity: 0.5;
+			 position: absolute;
+			 top: 0px;
+			 width: 100%;
+			 z-index: 10;
+		}
+
+		#chatForm {
+			 background-color: gray;
+			 display: none;
+			 left: 400px;
+			 padding: 10px;
+			 position: absolute;
+			 top: 100px;
+			 width: 500px;
+			 z-index: 11;
+		}
+
+		#chatForm .summaryFrm, #chatForm .descriptionFrm {
+			 width: 500px;
+		}
+
+		#chatForm p {
+			
+		}
+
+		#statments {
+			 display: none;
+		}
+
+		#chatForm div {
+			 float: left;
+			 padding: 10px;
+			 width: 450px;
+		}
+
+		#chatForm input, #chatForm textarea {
+			 float: right;
+			 width: 360px;
+		}
+
+		#chatForm #submitID, #chatForm a {
+			 float: right;
+			 width: 160px;
+		}
+
+		#messagewindowDiv {
+			 border: 1px solid;
+			 height: 450px;
+			 overflow: auto;
+			 padding: 5px;
+		}
+
+		.classArguments, classAnswers {
+			 display: inline-block;
+			 padding: 10px;
+			 width: 95%;
+		}
+
+		#debateDiv {
+			 background-color: whiteSmoke;
+			 color: black;
+			 float: left;
+			 padding: 10px;
+			 width: 70%;
+		}
+
+		#debateDiv a {
+			 color: black;
+			 text-decoration: none;
+		}
+
+		#tabs li a {
+			 color: #505050;
+		}
+
+		.blockRef {
+			 background-color: white;
+			 color: background;
+			 display: list-item;
+			 margin-left: 10px;
+		}
+
+		.blockRefClicked {
+			 background-color: whiteSmoke;
+		}
+
+		#debateRef {
+			 float: left;
+			 padding: 10px 0pt 10px 10px;
+			 width: 25%;
+		}
+
+		#mainContext {
+			 background-color: white;
+			 height: 100%;
+			 margin-top: 50%;
+			 padding: 20px;
+			 width: 97%;
+		}
+
+		#addStatments, #addQuestions {
+			 margin: 10px 0pt 5px;
+			 padding: 5px;
+			 text-decoration: none;
+			 width: 50%;
+		}
+
+		#debateDiv #addArguments, #debateDiv #compare, #debateDiv #spSearch {
+			 color: blue;
+			 font-weight: bold;
+			 margin: 10px 0pt 5px;
+			 padding: 5px;
+			 text-decoration: none;
+			 width: 50%;
+		}
+
+		#topicSpan {
+			 display: inline;
+			 font-size: 21px;
+			 font-weight: bold;
+			 padding: 24px;
+		}
+
+		.topic {
+			 background-color: buttonhighlight;
+			 border: 1px solid grey;
+			 color: black;
+			 float: left;
+			 font-size: 14px;
+			 font-weight: bold;
+			 margin: 2px -5px;
+			 padding: 4px;
+			 text-decoration: none;
+			 width: 100%;
+		}
+
+		.topic-filter {
+			 color: buttonshadow;
+			 font-size: 11px;
+			 margin-left: 50px;
+			 padding: 0px;
+			 text-decoration: none;
+		}
+
+		.topic-filter span {
+			 margin-left: 10px;
+			 padding: 10px;
+		}
+
+		.bookmarksDiv {
+			 height: 400px;
+			 width: 100%;
+		}
+
+		#questionsDiv, #statmentsDiv, #bookmarksDiv {
+			 float: left;
+			 width: 100%;
+		}
+
+		#tabs {
+			 display: none;
+			 margin: 10px;
+			 position: relative;
+			 width: 96%;
+		}
+
+		#logoDiv {
+			 background-color: white;
+			 border: 1px solid grey;
+			 color: blue;
+			 display: block;
+			 font-weight: bold;
+			 left: 22px;
+			 position: fixed;
+			 top: 4px;
+			 width: 97%;
+			 z-index: 1000;
+			 padding-left; 20px;
+			 height: 50%;
+		}
+
+		#tabs-q .question, .criterias, .answers {
+			 border: 1px solid blue;
+			 color: green;
+			 height: 30px;
+			 padding: 4px;
+			 width: 450px;
+		}
+		.criterias {
+			display: none;
+		}
+		#decisionSearch {
+			 left: 361px;
+			 position: absolute;
+			 top: 6px;
+			 width: 600px;
+		}
+        .submit {
+			 display: inline-block;
+			 float: right;
+			 background-color: lightgrey;
+		}
+		.clearDiv {
+			 clear: both;
+		}
+		.statmentRef {
+			font-weight: normal;
+			text-decoration: underline;
+		}
+		.css-panes {
+		   font-size: 11px;
+		   line-height: 1.0;
+		 }  
+	</style>
+
+</head>
+<body>
+
+	<div id="logoDiv">
+		<div>
+			<img src="./images/logo.jpg"></img>
+			<div class="css-panes" id="decisionSearch">
+				<ul >
+					<li><a href="#tabs-q">Question</a></li>
+					<li><a href="#tabs-o">Answers</a></li>
+				</ul>
+				<div id="tabs-q" class="css-tabs">
+					<input type="text" class="question"></input>
+					<input type="text" class="criterias"></input>
+					<a href="javascript:void()">Criterias</a>
+				</div>
+				<div  id="tabs-o" class="css-tabs">
+					1.<input type="text" class="answers"></input>
+				</div>
+			</div>	
+			<div class="submit">
+					<a href='javascript:void(0)' id='addStatments'>Add Question</a>
+					<a href='javascript:void(0)' id='addQuestions'>Add Answer</a>	
+					<input type="submit" value="Save"></input>
+			</div>	
+	
+	
+	<div id="mainContext">
+		<div id="debateRef">
+			<a href='javascript:void(0)' id='spSearch' class="topic">Search:<input type="text" id="search" /></a>
+			<div id="externalSearchDiv"></div>
+			<a href ="javascript:void(0)" class="topic">Questions <span class="topic-filter"><span class="categoryFltr">Category</span><span class="latestFltr">Latest</span><span class="popularFltr">Popular</span></span></a>
+			<div id="questionsDiv"></div>
+			<a href ="javascript:void(0)" class="topic">Answers <span class="topic-filter"><span class="categoryFltr">Category</span><span class="latestFltr">Latest</span><span class="popularFltr">Popular</span></span></a>
+			<div id="statmentsDiv"></div>
+			<a href ="javascript:void(0)" class="topic">Bookmarks <span class="topic-filter"><span class="categoryFltr">Category</span><span class="latestFltr">Latest</span><span class="popularFltr">Popular</span></span></a>
+			<div id="bookmarksDiv" ></div>
+			
+		</div>	
+		
+		<div id="debateDiv">
+			<div class="classArguments classAnswers">
+				<a href='javascript:void(0)' id='addArguments'>Add Arguments</a>
+				<a href='javascript:void(0)' id='compare'>Compare 1</a>
+				<span id="topicSpan"></span>
+				<div id="messagewindowDiv">
+					<span class="loading">Loading...</span>
+				</div>
+				<div id="tabs">	
+						<ul>
+							<li><a href="#tabs-1">Google</a></li>
+							<li><a href="#tabs-2">Ask</a></li>
+							<li><a href="#tabs-3">Yahoo</a></li>
+						</ul>
+						<div id="tabs-1">
+							<p>Your browser does not support iframes.</p>
+						</div>
+						<div id="tabs-2">
+							<p>Your browser does not support iframes.</p>
+						</div>
+						<div id="tabs-3">
+							<p>Your browser does not support iframes.</p>
+						</div>
+					</div>	
+				</div>	
+		</div>
+		
+		
+	</div>
+	
+	
+
+	</div>
+
+		
+	</div>
+
+	
+	<div id="chatDiv"></div>
+	<form id="chatForm">
+		<div id="name">Name: <input type="text" id="author" /></div> 
+		<div class="summaryFrm">Summary:<input type="text" id="msg" /></div>
+		<div class="descriptionFrm">Description:<textarea rows="2" cols="20" id="description"></textarea></div>
+		<div>
+			<input id="submitID" type="submit" value="ok" />
+			<a href='javascript:void(0)' id='cancelRef'>Cancel</a>
+		</div>
+		<input id="statments" value="Y" />
+	</form>
+	
+	
+	<textarea name="json" id="jsonData" rows="12" class="" style="display: none !important" >
+	{
+		"statments":
+		[
+			{
+				"id": "1",
+				"text": "God exists",
+				"rate": "90%",
+				"options": {
+					"agree": [
+						{
+							"id": "1",
+							"text": "I can hear him",
+							"rate": "20%"
+						},
+						{
+							"id": "3",
+							"text": "People lifes prove it",
+							"rate": "50%"
+						}
+					],
+					"disagree": [
+						{
+							"id": "1",
+							"text": "Cant be seen on demand",
+							"rate": "20%"
+						}
+					]
+				}	
+			},
+			{
+				"id": "1",
+				"text": "God exists",
+				"rate": "90%",
+				"options": {
+					"agree": [
+						{
+							"id": "1",
+							"text": "I can hear him",
+							"rate": "20%"
+						},
+						{
+							"id": "3",
+							"text": "People lifes prove it",
+							"rate": "50%"
+						}
+					],
+					"disagree": [
+						{
+							"id": "1",
+							"text": "Cant be seen on demand",
+							"rate": "20%"
+						}
+					]
+				}	
+			},
+				{
+				"id": "1",
+				"text": "God exists",
+				"rate": "90%",
+				"options": {
+					"agree": [
+						{
+							"id": "1",
+							"text": "I can hear him",
+							"rate": "20%"
+						},
+						{
+							"id": "3",
+							"text": "People lifes prove it",
+							"rate": "50%"
+						}
+					],
+					"disagree": [
+						{
+							"id": "1",
+							"text": "Cant be seen on demand",
+							"rate": "20%"
+						}
+					]
+				}	
+			},
+			{
+				"id": "2",
+				"text": "God doesn't exists",
+				"rate": "90%",
+				"options": {
+					"agree": [
+						{
+							"id": "1",
+							"text": "I can hear him",
+							"rate": "20%"
+						},
+						{
+							"id": "3",
+							"text": "People lifes prove it",
+							"rate": "50%"
+						}
+					],
+					"disagree": [
+						{
+							"id": "1",
+							"text": "Cant be seen on demand",
+							"rate": "20%"
+						}
+					]
+				}	
+			}
+		]
+	}
+	</textarea>
+	
+	
+</body>
+</html>

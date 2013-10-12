@@ -1,0 +1,177 @@
+<!-- IE in quirks mode -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+	<title>Fixed header</title>
+	<head>
+		<style type="text/css">
+
+			* html body {
+				overflow: hidden;
+			}
+			body {
+				padding: 100px 0 0;
+			}
+			body > div#header-main {
+				position: fixed;
+			}
+			div#header-main input#search {
+				border-radius: 5px 5px 5px 5px;
+				height: 26px;
+				padding: 5px;
+				width: 525px;
+			}
+			div#header-main {
+				background: none repeat scroll 0 0 blue;
+				border: 4px solid white;
+				border-radius: 8px 8px 10px 10px;
+				color: white;
+				font-family: serif;
+				font-size: 26px;
+				font-weight: bold;
+				height: 50px;
+				left: 8px;
+				padding-bottom: 8px;
+				padding-right: 10px;
+				padding-top: 30px;
+				position: absolute;
+				text-align: center;
+				top: 0px;
+				width: 98%;
+				z-index: 1000;
+			}
+			div#header {
+				border: 4px solid white;
+				border-radius: 10px 10px 10px 10px;
+				color: white;
+				height: 100px;
+				left: 20%;
+				padding: 10px;
+				position: absolute;
+				top: 96px;
+				width: 78%;
+				z-index: 100;
+			}
+			body > div#header {
+				position: fixed;
+			}
+			div#content {
+				background-color: gold;
+				border-radius: 10px 10px 10px 10px;
+				float: left;
+				margin-left: 20%;
+				overflow: auto;
+				padding: 10px;
+				position: absolute;
+				top: 230px;
+				width: 77%;
+			}
+			div#content p {
+				border-bottom: 2px solid blue;
+				color: blue;
+				height: 200px;
+			}
+			body {
+				font: 80%/1.3 Arial,sans-serif;
+			}
+			#header {
+				background: none repeat scroll 0 0 lime;
+				color: black;
+			}
+			div#right-sidebar {
+				background: none repeat scroll 0 0 green;
+				color: black;
+				padding: 10px;
+			}
+			body > div#left-sidebar {
+				position: fixed;
+			}
+			div#left-sidebar {
+				height: 100%;
+				left: 13px;
+				overflow: auto;
+				padding: 10px;
+				top: 96px;
+				width: 17%;
+				border-radius: 10px 10px 10px 10px;
+			}
+			div#left-sidebar {
+				background: none repeat scroll 0 0 DodgerBlue;
+				color: white;
+				font-weight: bold;
+			}
+			body > div#footer {
+				position: fixed;
+			}
+			div#footer {
+				bottom: 0;
+				height: 50px;
+				left: 0;
+				position: absolute;
+				width: 100%;
+			}
+			div#footer {
+				background: none repeat scroll 0 0 black;
+				color: white;
+			}
+
+		</style>
+		<script type="text/javascript" src="./js/jquery.min.js"></script>
+		
+		<script>
+			$(document).ready(function(){
+				
+				$('#header').click(
+					function(){
+						var divHeight = $(this).height() + 100;
+						if(divHeight < 400){
+							$(this).css('height', divHeight);
+							var divTop = $('#content')[0].offsetTop + 100;
+							$('#content').css('top', divTop);
+						}	
+					}
+				);
+				$('#footer').click(
+					function(){
+						var divHeight = $('#header').height() - 100;
+						if(divHeight > 0){
+							$('#header').css('height', divHeight);
+							var offsetTop = $(this).offsetTop - 100;
+							$(this).css('top', offsetTop);
+							offsetTop = $('#content')[0].offsetTop - 100;
+							$('#content').css('top', offsetTop);
+						}	
+					}
+				);
+			
+			});
+		</script>
+	</head>
+	
+	<body>	
+		<div id="header-main">
+			<form>
+				<span>SEARCH:</span> <input type="textbox" id="search"/>
+			</form>
+		</div>
+		<div id="header">
+			<h2>Topic: What is .....?</h2>
+			<p>Content can be placed here…
+		</div>
+		<div id="left-sidebar">
+		    <p>Serach Resukts:</p>
+		</div>
+		<div id="content">
+				<p> 1 My Test tesxt </p>
+				<p> 2 My Test tesxt </p>
+				<p> 3 My Test tesxt </p>
+				<p> 4 My Test tesxt </p>
+				<p> 5 My Test tesxt </p>
+				<p> 6 My Test tesxt </p>
+				<p> 7 My Test tesxt </p>
+				<p> 8 My Test tesxt </p>
+		</div>
+		<div id="footer">
+			<p>Content can be placed here…</p>
+		</div>
+	</body>	
+</html>	

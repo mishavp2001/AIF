@@ -1,0 +1,312 @@
+<html>
+<head>
+	<title>Debates</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		    //Hide submit mnew message form
+			$("#cancelRef").click( function () {
+				// Cancel submit form
+				$("#chatDiv, #chatForm").toggle();
+			});
+			$("#yesRef, #noRef").click( function () {
+				// Show submit form
+				$("#chatDiv, #chatForm").toggle();
+			});
+			
+			$("#generated1").click( function () {
+				// Show Debate
+				$("#debateDiv").toggle();
+			});
+			
+			
+			
+			timestamp = 0;
+			loadStatments();
+			updateMsg();
+			$("#chatForm").submit(function(){
+				$.post("backend.php",{
+							message: $("#msg").val(),
+							name: $("#author").val(),
+							agree: ($("#yes").is(':checked'))?'Y':'N',
+							action: "postmsg",
+							time: timestamp
+						}, function(json) {
+					$("#msg").empty();
+					$("#chatDiv, #chatForm").toggle();
+					addMessages(json);
+				});
+				return false;
+			});
+		});
+		function addMessages(json) {
+			if($("status",json).text() == "2") return;
+			timestamp = $("time",json).text();
+			$("message",json).each(function(id) {
+				message = $("message",json).get(id);
+				var winTemp = ($("agree",message).text()=='Y')?$("#messagewindowYes"): $("#messagewindowNo");
+				winTemp.prepend("<a href='javascript:void(0)' id = 'usrMsg'>" +
+											$("author",message).text() +
+											"</a>"	+ ":" + $("text",message).text()+
+											"<br />");
+			});
+		}
+		function updateMsg() {
+			$.post("backend.php",{ time: timestamp }, function(json) {
+				$(".loading").remove();
+				addMessages(json);
+			});
+			setTimeout('updateMsg()', 4000);
+		}
+	</script>
+	<style type="text/css">
+		#chatDiv {
+			display: none;
+			background-color: gray;
+			left: 0px;
+			position: absolute;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+			z-index: 10;
+			opacity: 0.5;
+		}
+		#chatForm {
+			display: none;
+			background-color: gray;
+			left: 400px;
+			padding: 10px;
+			position: absolute;
+			top: 100px;
+			z-index: 11;
+			width: 400px;
+		}
+		#chatForm p {
+	
+		}
+		#chatForm div {
+			display: inline-table;
+			width: 120px;
+		}
+		
+		#messagewindowYes, #messagewindowNo {
+			height: 250px;
+			border: 1px solid;
+			padding: 5px;
+			overflow: auto;
+		}
+		.classArguments{
+			display: inline-block;
+			padding: 10px;
+			width: 390px;
+		}
+		#debateDiv {
+			float: left;
+			width: 838px;
+			padding: 10px;
+			color: white;
+			background-color: black;
+		}
+		#debateDiv a{
+			text-decoration: none;
+			color: white;
+		}
+		.blockRef {
+			display: block;
+			background-color: grey;
+			color: white;
+		}
+		.blockRefClicked {
+			background-color: black;
+		}
+		#debateRef{
+			float: left;
+			width: 238px;
+			padding: 10px 0 10px 10px;
+		}
+		#mainContext{
+			background-color: grey;
+			float: left;
+			padding: 20px;
+			width: 90%;
+		}
+		
+	</style>
+</head>
+<body>
+
+	
+	<div id="mainContext">
+		<div id="debateRef"></div>	
+		<div id="debateDiv">
+				<div class="classArguments">
+				<a href='javascript:void(0)' id='yesRef'>Agree</a>
+				<div id="messagewindowYes"><span class="loading">Loading...</span>
+				</div>
+			</div>	
+			<div class="classArguments">
+				<a href='javascript:void(0)' id='noRef'>Disagree</a>
+				<div id="messagewindowNo" ><span class="loading">Loading...</span>
+				</div>
+			</div>
+			
+			<div id="chatDiv"></div>
+			<form id="chatForm">
+				<div>Name:</div> <div><input type="text" id="author" /></div> <br />
+				<div>Subject:</div> <input type="text" id="msg" /><br />
+				<div>Message:</div> <textarea rows="2" cols="20" id="textMsg"></textarea><br />
+				<div>Agree:</div> <input type="checkbox" id="yes" /><br />
+				<input type="submit" value="ok" /><br />
+				<a href='javascript:void(0)' id='cancelRef'>Cancel</a>
+			</form>
+		
+		</div>
+	</div>
+	<textarea name="json" id="jsonData" rows="12" class="" style="display: none !important" >
+	{
+		"statments":
+		[
+			{
+				"id": "1",
+				"text": "God exists",
+				"rate": "90%",
+				"options": {
+					"agree": [
+						{
+							"id": "1",
+							"text": "I can hear him",
+							"rate": "20%"
+						},
+						{
+							"id": "3",
+							"text": "People lifes prove it",
+							"rate": "50%"
+						}
+					],
+					"disagree": [
+						{
+							"id": "1",
+							"text": "Cant be seen on demand",
+							"rate": "20%"
+						}
+					]
+				}	
+			},
+			{
+				"id": "1",
+				"text": "God exists",
+				"rate": "90%",
+				"options": {
+					"agree": [
+						{
+							"id": "1",
+							"text": "I can hear him",
+							"rate": "20%"
+						},
+						{
+							"id": "3",
+							"text": "People lifes prove it",
+							"rate": "50%"
+						}
+					],
+					"disagree": [
+						{
+							"id": "1",
+							"text": "Cant be seen on demand",
+							"rate": "20%"
+						}
+					]
+				}	
+			},
+				{
+				"id": "1",
+				"text": "God exists",
+				"rate": "90%",
+				"options": {
+					"agree": [
+						{
+							"id": "1",
+							"text": "I can hear him",
+							"rate": "20%"
+						},
+						{
+							"id": "3",
+							"text": "People lifes prove it",
+							"rate": "50%"
+						}
+					],
+					"disagree": [
+						{
+							"id": "1",
+							"text": "Cant be seen on demand",
+							"rate": "20%"
+						}
+					]
+				}	
+			},
+			{
+				"id": "2",
+				"text": "God doesn't exists",
+				"rate": "90%",
+				"options": {
+					"agree": [
+						{
+							"id": "1",
+							"text": "I can hear him",
+							"rate": "20%"
+						},
+						{
+							"id": "3",
+							"text": "People lifes prove it",
+							"rate": "50%"
+						}
+					],
+					"disagree": [
+						{
+							"id": "1",
+							"text": "Cant be seen on demand",
+							"rate": "20%"
+						}
+					]
+				}	
+			}
+		]
+	}
+	</textarea>
+	
+	
+	<script type="text/javascript">
+		
+		function loadStatments(){
+			var jsonObj; 
+			var jsonData = $("#jsonData").val();
+				jsonData = jsonData.replace(/(^\s+|\s+$)/, "");
+			// attempt to create valid JSON
+			try
+				{
+					jsonObj = $.parseJSON(jsonData);
+				}
+				catch(err)
+				{
+					alert('That appears to be invalid JSON!')
+				}
+			
+			$.each(jsonObj.statments, function() { 
+				$("#debateRef").prepend("<a href='javascript:void(0)' class='blockRef'" + "id='" + this.id + "' >" + this.text + "</a>");	
+				$(".blockRef").click( function () {
+					$(".blockRef").removeClass('blockRefClicked');
+					$(this).addClass('blockRefClicked');
+					// Load context into context div.
+						
+					
+				});
+			});
+			// Load context of the first link into context div.
+			$(".blockRef:first").addClass('blockRefClicked');
+		}	
+	</script>
+	
+	
+</body>
+</html>

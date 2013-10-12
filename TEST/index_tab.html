@@ -1,0 +1,155 @@
+<html>
+<head>
+
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/base/jquery-ui.css" type="text/css" media="all" />
+		
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
+			<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js" type="text/javascript"></script>
+		
+
+<script>
+	$(function() {
+		  var a = function() {
+			var b = $(window).scrollTop();
+			var d = $("#scroller-anchor").offset({scroll:false}).top;
+			var c=$("#scroller");
+			if (b>d) {
+			  c.css({position:"fixed",top:"0px"})
+			} else {
+			  if (b<=d) {
+				c.css({position:"relative",top:""})
+			  }
+			}
+		  };
+		  $(window).scroll(a);a();
+	});
+</script>
+
+<style>
+  body {
+    width: 960px;
+  }
+  #mainbar {
+    width: 660px;
+    float: left;
+  }
+  #sidebar {
+    width: 270px;
+    position: fixed;
+	left: 600px;
+	top: 100px;
+  }
+  #scroller {
+    width: 270px;
+  }
+  #footer {
+    clear: both;
+  }
+
+</style>
+
+</head>
+
+<body>
+<h1>Scroller demo</h1>
+
+<div id="mainbar">
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+non tortor eros, nec rhoncus nulla. In fringilla, dui vel vehicula
+luctus, nunc arcu ultricies nisi, eu adipiscing sapien orci nec
+justo. Nulla facilisis gravida tempus. Nunc interdum, dolor sed
+euismod rutrum, odio turpis rutrum odio, iaculis venenatis nunc sem eu
+dui. Nulla venenatis, leo quis porta luctus, ipsum ipsum tempus nunc,
+in fermentum arcu odio non ipsum. Vivamus bibendum pulvinar sapien a
+cursus. Nullam lobortis nibh eget odio placerat hendrerit. In non leo
+turpis, quis posuere augue. Mauris auctor commodo quam, quis vulputate
+orci tincidunt et. Nulla tellus lectus, rhoncus ut malesuada eget,
+auctor ac ligula. Suspendisse mollis tempus interdum. Proin non velit in
+lectus elementum interdum eu eget velit. Class aptent taciti sociosqu
+ad litora torquent per conubia nostra, per inceptos himenaeos. Nam
+lobortis, est ac elementum tincidunt, lacus dolor lacinia erat, eget
+ullamcorper augue justo in lectus. Aliquam eros felis, fringilla sed
+cursus sit amet, consectetur nec tellus. Vestibulum ultricies auctor
+erat, ac facilisis felis fermentum id.
+
+<p>
+Quisque sed rhoncus dolor. Nullam hendrerit justo non lacus rutrum
+vitae pellentesque velit adipiscing. Vestibulum ante ipsum primis in
+faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus
+pulvinar ultricies sapien, sed consectetur purus condimentum et. Nulla
+viverra accumsan condimentum. Ut sodales, lacus sed varius porttitor,
+odio ipsum tristique odio, ac sollicitudin est urna at sem. Aliquam
+suscipit porta felis, sit amet aliquet justo ultricies ac. Proin a orci
+et eros interdum dignissim. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. Aenean vehicula malesuada
+pretium. Suspendisse potenti. Nullam at felis quam. Donec gravida mi
+et purus pretium vitae placerat lacus porttitor. Donec scelerisque
+pellentesque sollicitudin. Nullam et lacinia urna. In velit magna,
+malesuada quis iaculis a, auctor at felis. Quisque hendrerit aliquam
+diam vel luctus. Vestibulum venenatis sapien at libero mattis mattis.
+
+<p>
+Etiam eu aliquet tellus. Cras malesuada ligula non urna auctor a
+pretium lorem placerat. Quisque pulvinar turpis non nisi laoreet
+fringilla. Proin mollis enim id nisi egestas eget varius metus
+mattis. Nulla viverra dui quis velit gravida sodales. Nulla nec
+nisi et ligula viverra eleifend. Aliquam ac lectus at nunc mattis
+volutpat. Suspendisse elit lorem, gravida nec lobortis non, venenatis
+nec odio. Vestibulum et luctus sapien. Donec faucibus blandit urna,
+nec convallis metus aliquam suscipit. Curabitur fermentum purus ornare
+mauris auctor tristique. Cras vel magna sit amet felis tempor dapibus
+nec id turpis. Duis eu tortor lorem. Nulla dapibus pellentesque enim
+lobortis feugiat. Vestibulum ante ipsum primis in faucibus orci luctus
+et ultrices posuere cubilia Curae; Morbi iaculis sem ut erat sodales non
+elementum elit bibendum. Duis ut mi tellus. Integer consequat ligula
+mattis tortor aliquam ut hendrerit lacus tempus. Quisque suscipit magna
+nec nulla accumsan sit amet tempor nisi gravida.
+
+<p>
+Mauris pulvinar tortor id justo feugiat ultrices. Vestibulum vel
+ante orci, a venenatis tortor. Duis urna erat, imperdiet iaculis
+facilisis eu, convallis et dolor. Suspendisse mauris ligula, luctus a
+pellentesque vitae, rhoncus eu lectus. Morbi eget leo sed magna varius
+pretium quis sit amet lectus. Nunc sagittis molestie congue. Donec
+aliquet vestibulum dui, non placerat massa pharetra at. Maecenas ac
+massa elit, eget venenatis elit. Nullam elementum aliquet nisi, eu
+luctus libero fringilla sed. Maecenas vitae mauris nisi, a egestas
+lectus. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Donec lobortis malesuada libero, a
+tempus tortor auctor et. Vestibulum iaculis eleifend neque, et consequat
+augue adipiscing sit amet. Integer sodales dictum nibh et suscipit. In
+congue sollicitudin erat et imperdiet.
+
+<p>
+Proin tellus enim, bibendum a sollicitudin non, accumsan at
+nisl. Phasellus vulputate elementum ligula a volutpat. Etiam scelerisque
+sollicitudin massa id convallis. Duis bibendum molestie tempus. Vivamus
+lacinia accumsan quam, at aliquam mauris ultrices at. Sed malesuada
+faucibus massa, lobortis pharetra diam accumsan a. Curabitur dignissim
+nunc vitae erat laoreet a laoreet sem bibendum. Etiam eu varius
+erat. Integer porttitor porta tincidunt. Nam dictum tellus bibendum
+tellus interdum ullamcorper. Phasellus justo lorem, semper in vehicula
+interdum, vestibulum ac purus. Integer hendrerit lectus at nisi luctus
+aliquet. Donec consectetur nisi vel metus viverra porttitor vel non
+lectus. Proin eget enim sagittis ligula mattis posuere ut varius
+ligula. Mauris euismod tempus sem nec pretium. Donec congue suscipit
+libero, id pretium dolor luctus sed. Donec sed metus id nulla tempor
+vulputate non vel nisl. Vestibulum a turpis vitae leo commodo pulvinar
+eu vitae enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</div>
+
+<div id="sidebar" style="width:270px;">
+  <div id="scroller-anchor"></div>
+  <div id="scroller" style="margin-top:10px; width:270px">
+    This content will remain fixed to the browser window, but not if
+    you're too close to the top of the page.
+  </div>
+</div>
+
+<div id="footer">
+  Shamelessly stolen from Stack Overflow.
+</div>	
+	
+</body>
+</html>
